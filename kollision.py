@@ -3,15 +3,15 @@ import sys
 
 class kollision():
 	def __init__(self,x,y,x2,y2,laenge):
-		self.x=x#z.B. x Koordinate Raimschiff
+		self.x=x#z.B. x Koordinate Raumschiff
 		self.y=y#z.B. y Koordinate Raumschiff
-		self.x2=x2#z.B. x Koordinate Meteor
-		self.y2=y2#z.B. y Koordinate Meteor
+		self.x2=x2#z.B. x Koordinate Meteorit
+		self.y2=y2#z.B. y Koordinate Meteorit
 		self.laenge=laenge
 
 
 
-	def getkollision(self,x,y,x2,y2,laenge):		#funktion zur kollesionsabfrage
+	def getkollision(self,x,y,x2,y2,laenge):		#Funktion zur Kollisionsabfrage
 		diff=0
 
 
@@ -36,6 +36,4 @@ class kollision():
 			treffer=True
 		else:
 			treffer=False
-		return treffer
-
-
+		return treffer	#gibt treffer wieder

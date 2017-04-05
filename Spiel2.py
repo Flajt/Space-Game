@@ -56,9 +56,9 @@ class Spiel():
 		self.Score=0
 		self.richtung="keine"
 		self.tastegedrueckt=False
-		self.laser=Laser(self.blau,self.display) #bereite alles für Klassen nutzung vor
+		self.laser=Laser(self.blau,self.display) #bereite alles für Klassennutzung vor
 		self.alienlaser=Laser(self.rot,self.display)
-		self.links=random.randint(10,900)	#generiere Zufallszahlen für meteroid eins und zwei
+		self.links=random.randint(10,900)	#generiere Zufallszahlen für meteroit eins und zwei
 		self.zwei=random.randint(10,900)
 		self.gesch=1.3
 		self.altscore=self.Score
@@ -88,7 +88,7 @@ class Spiel():
 
 				self.alien_x.append(xcordinates)
 
-		self.m1=kollision(self.x,self.y,self.links,self.p,100)	#objekt zur Kollisionsabfrage für Raumschiff und Meteoriten
+		self.m1=kollision(self.x,self.y,self.links,self.p,100)	#Objekt zur Kollisionsabfrage für Raumschiff und Meteoriten
 		self.m2=kollision(self.x,self.y,self.zwei,self.q,100)
 		self.al=kollision(self.x, self.y,self.alien_x,self.alien_y,100)
 		self.allaser=kollision(self.x,self.y,self.alienlaser.laser_1,self.alienlaser.laser_2,35)
@@ -106,7 +106,7 @@ class Spiel():
 
 
 
-	def aliens(self):			#funktion für alienraumschiffe
+	def aliens(self):			#Funktion für Alienraumschiffe
 		count=random.randint(1,5)
 		test_count=count
 		self.alien_x=[]
@@ -133,7 +133,7 @@ class Spiel():
 			if event.type==QUIT:		#zum Fenster schließen
 				pygame.quit()
 				sys.exit()
-			if event.type==KEYDOWN:		#prüfe ob taste gedrückt wurde
+			if event.type==KEYDOWN:		#prüfe ob Taste gedrückt wurde
 				self.tastegedrueckt=True
 				if event.key==pygame.K_LEFT:	#prüfe welche der Tasten gedrückt wurde
 					self.richtung="links"
@@ -165,11 +165,11 @@ class Spiel():
 			i = i+1
 
 
-		if len(self.alienlaser.laser_2)>0:	#prüft ob
+		if len(self.alienlaser.laser_2)>0:	#prüft ob die Liste größer als null ist
 			if self.alienlaser.laser_2[0]>= 1100:	#prüft ob der Laser aus dem Bild geflogen ist
-				self.alienlaser.laser_2=[]			#setze beide listen zurück
+				self.alienlaser.laser_2=[]			#setze beide Listen zurück
 				self.alienlaser.laser_1=[]
-				for i in self.alien_x:				# lässt aliens schießen sobald der laser aus dem Bild ist
+				for i in self.alien_x:				# lässt Aliens schießen sobald der laser aus dem Bild ist
 					self.alienlaser.laser_1.append(i)
 					self.alienlaser.laser_2.append(self.alien_y+100)
 
@@ -186,7 +186,7 @@ class Spiel():
 				self.y=self.y-1
 			if self.richtung=="runter" and self.y<900:
 				self.y=self.y+1
-													#definiere Zufallszahlen zum erzeugen der Meteoriden
+													#definiere Zufallszahlen zum erzeugen der Meteoriten
 		self.p=self.p+self.gesch
 		if self.p>=1100:
 			self.links=random.randint(10,900)
@@ -202,13 +202,13 @@ class Spiel():
 #------------------------------------------------------------------------------#
 #alien funktion
 
-		if self.alien_y>=1100:	#lasse neue aliens Spawen sobald sie aus dem Bild sind
+		if self.alien_y>=1100:	#lasse neue Aliens Spawen sobald sie aus dem Bild sind
 			self.aliens()
 
 
 
 
-		while len(self.alien_x)==0:	#lässt alienschiffe erzeugen falls alle vernichtet worden sind
+		while len(self.alien_x)==0:	#lässt Alienschiffe erzeugen falls alle vernichtet worden sind
 			self.aliens()
 
 
@@ -216,11 +216,11 @@ class Spiel():
 			alien_form=pygame.Rect(i,self.alien_y,100,100)
 			self.display.blit(self.alien,alien_form)
 
-		self.alienlaser.schiessen(self.display)	#lässt alienlaser darstellen
+		self.alienlaser.schiessen(self.display)	#lässt Alienlaser darstellen
 		self.alien_y=self.alien_y+self.zahl		# und lässt ihn mit der vorgegeben Geschwindigkeit fliegen
 
 		i=0
-		while i<len(self.alien_x):				#alien kolisionsabfrage
+		while i<len(self.alien_x):				#Alien Kollisionsabfrage
 			if self.al.getkollision(self.x,self.y,self.alien_x[i],self.alien_y,100)==True:
 				del(self.alien_x[i])
 				self.player=self.player-1
@@ -230,7 +230,7 @@ class Spiel():
 							#zweite Kollisionsabfrage
 
 
-		if self.m1.getkollision(self.x,self.y,self.links,self.p,100)==True:		#Kollisionsabfrage für Meteor 1 und 2 und Raumschiff
+		if self.m1.getkollision(self.x,self.y,self.links,self.p,100)==True:		#Kollisionsabfrage für Meteoit 1 und 2 und Raumschiff
 			self.links=random.randint(10,1180)	#setzt neue x Koordinaten fest
 			self.player=self.player-1 #zieht ein Leben ab
 
@@ -242,9 +242,9 @@ class Spiel():
 		for i in range(len(self.laser.laser_1)):	#große Kollisionsabfrage für Laser + Meteoriten
 				if self.laser.laser_1[i]>self.zwei-5 and self.laser.laser_1[i]<self.zwei+100 and self.laser.laser_2[i]>self.q and self.laser.laser_2[i]<self.q+100:
 					self.Score=self.Score+10 #rechnet 10 punkte auf den aktuellen
-					self.zwei=random.randint(1,1180)
-					self.q=0	#setzt
-					# lasse meteor neu spawnen
+					self.zwei=random.randint(1,1180)	#rechnet neue x Koordinaten aus
+					self.q=0	#setzt die y Koordinaten auf null
+					# lasse Meteoriten neu spawnen
 				if self.laser.laser_1[i]>self.links and self.laser.laser_1[i]<self.links+100 and self.laser.laser_2[i]>self.p and self.laser.laser_2[i]<self.p+100:
 					self.Score=self.Score+10
 					self.links=random.randint(1,1180)
@@ -253,17 +253,17 @@ class Spiel():
 					self.Score=self.Score+10
 					self.zwei=random.randint(1,1180)
 					self.q=0
-					# lasse meteor neu spawnen
+					# lasse Meteoriten neu spawnen
 				if self.laser.laser_1[i]+100>self.links and self.laser.laser_1[i]+100<self.links+100 and self.laser.laser_2[i]>self.p and self.laser.laser_2[i]<self.p+100:
 					self.Score=self.Score+10
 					self.links=random.randint(1,1180)
 					self.p=0
-					# lasse meteor neu spawnen
+					# lasse Meteoriten neu spawnen
 
 
 
 
-		for i in range(len(self.laser.laser_1)): # hier die abfrage für Spiellaser und alienschiffe
+		for i in range(len(self.laser.laser_1)): # hier die abfrage für Spiellaser und Alienschiffe
 			j = 0
 			while j < len(self.alien_x):
 				if self.laser.laser_1[i]>self.alien_x[j]-5 and self.laser.laser_1[i]<self.alien_x[j]+100 and self.laser.laser_2[i]>self.alien_y and self.laser.laser_2[i]<self.alien_y+100:
@@ -271,41 +271,41 @@ class Spiel():
 						del(self.alien_x[j])
 				elif self.laser.laser_1[i]+100>self.alien_x[j]-5 and self.laser.laser_1[i]+100<self.alien_x[j]+100 and self.laser.laser_2[i]>self.alien_y and self.laser.laser_2[i]<self.alien_y+100:
 						self.Score=self.Score+5 #addiert 5 Punkte auf den Punktestand
-						del(self.alien_x[j]) #löscht das alienschiff das getroffen wurde
+						del(self.alien_x[j]) #löscht das Alienschiff das getroffen wurde
 				j = j+1
 
 		i=0
 		while i<len(self.alienlaser.laser_1):		#kollisionsabfrage für alienlaser und Raumschiff
 			if self.allaser.getkollision(self.x,self.y,self.alienlaser.laser_1[i],self.alienlaser.laser_2[i],35)==True:
 				self.player=self.player-1
-				del(self.alienlaser.laser_1[i]) #löscht alienlaser der Getroffen hat
+				del(self.alienlaser.laser_1[i]) #löscht Alienlaser der getroffen hat
 				del(self.alienlaser.laser_2[i])
 			i=i+1
 
 
-		if self.Score>=self.altscore+50 :	#fügt level hinzu die die Geschwindigkeit erhöhen
+		if self.Score>=self.altscore+50 :	#fügt Level hinzu die die Geschwindigkeit erhöhen
 			self.gesch=self.gesch+0.2
 			self.altscore=self.Score		#speichert den aktuellen Score in der Altscore variable
 			self.Level=self.Level+1
 			self.zahl=self.zahl+0.2
-			self.aliens()		#lässt aliens neu erscheinen
+			self.aliens()		#lässt Aliens neu erscheinen
 
 
 
 
 
 		rechteck=pygame.Rect(self.x,self.y,115,110) #x,y breite,laenge vom Raumschiff
-		kreis=pygame.Rect(self.links,self.p,100,150)#erzeugt eim Rechteck mit Koordinaten von dem Darzustellendem und der Größe des Bildes
+		kreis=pygame.Rect(self.links,self.p,100,150)#erzeugt eim Rechteck mit Koordinaten von dem Darzustellendem Bild und der Größe des Bildes
 		kreiss=pygame.Rect(self.zwei,self.q,100,150)		#x y breite höhe (Für Laser Aufruf(laser1))
 		self.laser.schiessen(self.display)#zeichet Laser
-		self.display.blit(self.meteor,kreis) #meteor wird eingefuegt
-		self.display.blit(self.raumschiff, rechteck) #raumschiffbild und das dafür zu nutzende Rechteck werden gezeichnet
+		self.display.blit(self.meteor,kreis) #Meteorit wird eingefuegt
+		self.display.blit(self.raumschiff, rechteck) #Raumschiffbild und das dafür zu nutzende Rechteck werden gezeichnet
 		self.display.blit(self.meteor2, kreiss)
 
 		pygame.font.init()				#initiert das "font" für die Leben
 		myfont=pygame.font.SysFont("monospace", 20)		#lege größe und schriftart des auszugebenden Textes fest
 		label = myfont.render("Leben:"+str(self.player), 1, (65,209,108))		#rendert Farbe + Text
-		self.display.blit(label, (0, 100))						#legt Kordinaten (x, y) für den auszugebenden Text fest
+		self.display.blit(label, (0, 100))						#legt Koordinaten (x, y) für den auszugebenden Text fest
 
 
 
@@ -318,7 +318,7 @@ class Spiel():
 		out_Fps=fps.render("FPS:"+str(self.FPS),1,(65,209,108))
 		self.display.blit(out_Fps,(1400,5))
 
-		stufe=pygame.font.SysFont("monospace", 20)#gibt level aus
+		stufe=pygame.font.SysFont("monospace", 20)#gibt Level aus
 		out_Stufe=fps.render("Level:"+str(self.Level),1,(65,209,108))
 		self.display.blit(out_Stufe,(0,250))
 
@@ -332,7 +332,7 @@ class Spiel():
 			out2=gameover.render("Ihr Score betraegt "+str(self.Score),1,(15,6,6))
 			self.display.blit(out, (500,400))
 			self.display.blit(out2, (150, 600))		#gibt den score wieder
-			pygame.display.update()	#sorgt dafür das das Display auf den neusten stand gebracht wird
+			pygame.display.update()	#sorgt dafür das das Display auf den neusten Stand gebracht wird
 			time.sleep(5)
 			return True	#gibt wieder ob man verloren hat und ins Menue zuruekgebracht werden soll
 		else:
